@@ -47,3 +47,88 @@ function compareNumbers(a, b) {
 const sorted = arr.sort(compareNumbers);
 
 console.log('binary Search', binarySearch(sorted, 1));
+
+//exercise 3 -general idea
+// 100.358549856
+// dewey[big numbers][decimals];
+// dewey[100][358549856];
+//
+//
+// searchForBook(dewey, callNumber) {
+//   index = binarySearch(dewey, callNumber | 0);
+//   book = lSearch(dewey[index], callNumber);
+// }
+
+
+//exercise 4
+class BinarySearchTree {
+  constructor(key = null, value = null, parent = null) {
+    this.key = key;
+    this.value = value;
+    this.parent = parent;
+    this.left = null;
+    this.right = null;
+  }
+
+  insert(key, value) {
+    if (this.key == null) {
+      this.key = key;
+      this.value = value;
+    } else if (key < this.key) {
+      if (this.left == null) {
+        this.left = new BinarySearchTree(key, value, this);
+      } else {
+        this.left.insert(key, value);
+      }
+    } else {
+      if (this.right == null) {
+        this.right = new BinarySearchTree(key, value, this);
+      } else {
+        this.right.insert(key, value);
+      }
+    }
+  }
+
+  preOrder() {
+    console.log(this.key);
+    if (this.left) {
+      this.left.preOrder();
+    }
+    if (this.right) {
+      this.right.preOrder();
+    }
+  }
+
+  inOrder() {
+    if (this.left) {
+      this.left.inOrder();
+    }
+    console.log(this.key);
+    if (this.right) {
+      this.right.inOrder();
+    }
+  }
+
+  postOrder() {
+    if (this.left) {
+      this.left.postOrder();
+    }
+    if (this.right) {
+      this.right.postOrder();
+    }
+    console.log(this.key);
+  }
+
+}
+
+const tree = new BinarySearchTree;
+
+let DFSarray = [25, 15, 50, 10, 24, 35, 70, 4, 12, 18, 31, 44, 66, 90, 22];
+DFSarray.map(el => {
+  tree.insert(el);
+});
+
+//console.log(tree);
+//tree.preOrder(); //24, 18, 22
+//tree.inOrder();
+//tree.postOrder(); //22, 18, 24
