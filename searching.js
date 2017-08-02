@@ -36,7 +36,7 @@ const arr = array.map(el => {
   return parseInt(el, 10);
 });
 
-console.log('linear search', lSearch(arr, 27));
+//console.log('linear search', lSearch(arr, 27));
 
 
 //exercise 2
@@ -46,7 +46,7 @@ function compareNumbers(a, b) {
 
 const sorted = arr.sort(compareNumbers);
 
-console.log('binary Search', binarySearch(sorted, 1));
+//console.log('binary Search', binarySearch(sorted, 1));
 
 //exercise 3 -general idea
 // 100.358549856
@@ -132,3 +132,66 @@ DFSarray.map(el => {
 //tree.preOrder(); //24, 18, 22
 //tree.inOrder();
 //tree.postOrder(); //22, 18, 24
+
+//exercise 5, figure out when to buy/sell stock
+
+const stocksArray = [128, 97, 121, 123, 98, 97, 105];
+function buySellStock(stocks){
+  let buyPrice = 1000000;
+  let buyIndex = 0;
+  let sellPrice = 0;
+
+  for(let i = 0; i < stocks.length-1; i++){
+    if(stocks[i] < buyPrice)
+    {
+      buyPrice = stocks[i];
+      buyIndex = i;
+    }
+  }
+
+  for(let j=buyIndex+1; j < stocks.length; j++){
+    if(stocks[j] > sellPrice)
+      sellPrice = stocks[j];
+  }
+
+  return sellPrice - buyPrice;
+}
+
+console.log(buySellStock(stocksArray));
+
+//exercise 6, 100 floors, 2 eggs.... one sort
+
+function eggDropSoup(floors=100, eggs=2, increment=5){
+  const dropZone = Math.floor(Math.random() * 100);
+  console.log("drop zone", dropZone);
+  let prevFloorNumber = 0;
+  let currentFloorNumber = increment;
+
+  while(eggs !== 0){
+    
+    if(currentFloorNumber === dropZone){
+      console.log("YOU FOUND IT! WOOOOO! ", currentFloorNumber);
+      return currentFloorNumber;
+    }
+    else if(currentFloorNumber < dropZone && currentFloorNumber >= prevFloorNumber+increment){
+      console.log(`incrementing by ${increment}:`, currentFloorNumber);
+      prevFloorNumber = currentFloorNumber;
+      currentFloorNumber +=increment;
+    }
+    else if(currentFloorNumber > dropZone && currentFloorNumber >= prevFloorNumber+increment){
+      console.log("uhoh, you broke your first egg:", currentFloorNumber);
+      eggs--;
+      currentFloorNumber = prevFloorNumber;
+      currentFloorNumber++;
+    }
+    else if(currentFloorNumber <= prevFloorNumber+increment){
+      console.log("linear search:", currentFloorNumber);
+      currentFloorNumber++;
+    }
+    
+  }
+
+  console.log("shows over, go home");
+}
+
+//eggDropSoup(100, 2, 20);
